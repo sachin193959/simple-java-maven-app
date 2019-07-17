@@ -23,7 +23,11 @@ pipeline {
         }
         stage('Deliver') {
             steps {
-                sh './jenkins/scripts/deliver.sh'
+                   sshagent(['tomcat-dev']) {
+           sh 'ssh -o StrictHostKeyChecking=no target/*.war ec2-user@3.83.104.170:/home/ec2-user/opt/apache-tomcat-8.5.34/webapps/'
+
+                 }
+
             }
         }
     }
